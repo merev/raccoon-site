@@ -1,0 +1,27 @@
+.header-merev {
+    font-size: 16px;
+    font-weight: bold;
+    justify-content: center;
+    text-align: center;
+}
+
+.header-merev:hover {
+    color: #0d6efd;
+}
+
+.header-merev:not(:hover) {
+    color: #c6c6c6;
+}
+
+.header-element:not(:hover) {
+    color: #c6c6c6;
+}
+
+.header-element:hover {
+    color: #0d6efd;
+}
+
+.text-primary {
+    color: #0d6efd;
+}
+
