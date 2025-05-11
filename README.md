@@ -1,4 +1,4 @@
-# Raccoon Compani Website (Under Construction)
+# Raccoon Company Website (Under Construction)
 
-![Alt Text](./readme_files/raccoon-site.png)
+![Alt Text](./public/readme_files/raccoon-site.png)
 
