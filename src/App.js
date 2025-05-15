@@ -42,8 +42,8 @@ function Layout() {
 
     return (
         <div>
-            <Header />
-            <Container fluid className='docs-page'>
+            {/* <Header /> */}
+            <Container fluid className='home-page'>
                 <Row>
                    <Routes>
                             <Route exact path="/" element={<HomePage />} />
