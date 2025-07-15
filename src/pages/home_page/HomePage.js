@@ -33,6 +33,56 @@ const HomePage = () => {
             style={{ width: '60%', maxWidth: '600px', height: 'auto' }}
           />
         </section>
+
+        <section className="services-section">
+          <Container>
+            <h2 className="mb-4 text-center">Нашите услуги</h2>
+            <Row className="justify-content-center">
+              <div className="col-12 col-md-4 mb-4 d-flex justify-content-center">
+                <Nav.Link as={Link} to="/search">
+                <div className="card" style={{ width: '18rem' }}>
+                  <img
+                    src="/images/placeholder/linux-icon.png"
+                    className="card-img-top"
+                    alt="Почистване на домове"
+                  />
+                  <div className="card-body text-center">
+                    <h5 className="card-title">Домове</h5>
+                  </div>
+                </div>
+                </Nav.Link>
+              </div>
+              <div className="col-12 col-md-4 mb-4 d-flex justify-content-center">
+                <Nav.Link as={Link} to="/search">
+                <div className="card" style={{ width: '18rem' }}>
+                  <img
+                    src="/images/placeholder/linux-icon.png"
+                    className="card-img-top"
+                    alt="Почистване на офиси"
+                  />
+                  <div className="card-body text-center">
+                    <h5 className="card-title">Офиси</h5>
+                  </div>
+                </div>
+                </Nav.Link>
+              </div>
+              <div className="col-12 col-md-4 mb-4 d-flex justify-content-center">
+                <Nav.Link as={Link} to="/search">
+                <div className="card" style={{ width: '18rem' }}>
+                  <img
+                    src="/images/placeholder/linux-icon.png"
+                    className="card-img-top"
+                    alt="Почистване на автомобили"
+                  />
+                  <div className="card-body text-center">
+                    <h5 className="card-title">Автомобили</h5>
+                  </div>
+                </div>
+                </Nav.Link>
+              </div>
+            </Row>
+          </Container>
+        </section>
       </CenteredLayout>
     );
 };
