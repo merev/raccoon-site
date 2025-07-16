@@ -10,10 +10,16 @@ const HomePage = () => {
 
     return (
         <CenteredLayout>
+        <div className="homepage-header-section">
         <section className="homepage-main-section text-center">
           <h1 className="display-3 homepage-title">Raccoon Cleaning</h1>
           <h4>Професионално почистване с техника <b>Kärcher</b></h4>
-  
+        </section>
+        
+        <section className="homepage-subtitle text-center">
+          <h6 className="header-subtitle">
+          Ние от <b>Raccoon Cleaning</b> вярваме, че чистотата е повече от услуга – тя е доверие, качество и внимание към всеки детайл. Благодарение на модерната техника на световния лидер <b>Kärcher</b>, нашият професионален екип се грижи не само за безупречната чистота на вашия дом или офис, но и за перфектния вид на вашия автомобил. Изберете нашите решения и се насладете на свежестта, комфорта и уюта, които заслужавате!
+          </h6>
           <div className="my-4">
             <Nav.Link as={Link} to="/search">
               <Button variant="light" size="lg" className="search-button">
@@ -21,10 +27,8 @@ const HomePage = () => {
               </Button>
             </Nav.Link>
           </div>
-          <h6 className="header-subtitle">
-          Ние от <b>Raccoon Cleaning</b> вярваме, че чистотата е повече от услуга – тя е доверие, качество и внимание към всеки детайл. Благодарение на модерната техника на световния лидер <b>Kärcher</b>, нашият професионален екип се грижи не само за безупречната чистота на вашия дом или офис, но и за перфектния вид на вашия автомобил. Изберете нашите решения и се насладете на свежестта, комфорта и уюта, които заслужавате!
-          </h6>
         </section>
+        </div>
   
         <section className="image-container d-flex justify-content-center align-items-center">
           <img
@@ -36,7 +40,7 @@ const HomePage = () => {
 
         <section className="services-section">
           <Container>
-            <h2 className="mb-4 text-center">Нашите услуги</h2>
+            <h2 className="mb-4 text-center services-title">Нашите услуги</h2>
             <Row className="justify-content-center">
               <div className="col-12 col-md-4 mb-4 d-flex justify-content-center">
                 <Nav.Link as={Link} to="/search">
@@ -44,7 +48,7 @@ const HomePage = () => {
                   <img
                     src="/images/placeholder/linux-icon.png"
                     className="card-img-top"
-                    alt="Почистване на домове"
+                    alt="Домове"
                   />
                   <div className="card-body text-center">
                     <h5 className="card-title">Домове</h5>
@@ -58,7 +62,7 @@ const HomePage = () => {
                   <img
                     src="/images/placeholder/linux-icon.png"
                     className="card-img-top"
-                    alt="Почистване на офиси"
+                    alt="Офиси"
                   />
                   <div className="card-body text-center">
                     <h5 className="card-title">Офиси</h5>
@@ -72,10 +76,38 @@ const HomePage = () => {
                   <img
                     src="/images/placeholder/linux-icon.png"
                     className="card-img-top"
-                    alt="Почистване на автомобили"
+                    alt="Автомобили"
                   />
                   <div className="card-body text-center">
                     <h5 className="card-title">Автомобили</h5>
+                  </div>
+                </div>
+                </Nav.Link>
+              </div>
+              <div className="col-12 col-md-4 mb-4 d-flex justify-content-center">
+                <Nav.Link as={Link} to="/search">
+                <div className="card" style={{ width: '18rem' }}>
+                  <img
+                    src="/images/placeholder/linux-icon.png"
+                    className="card-img-top"
+                    alt="Входове"
+                  />
+                  <div className="card-body text-center">
+                    <h5 className="card-title">Входове</h5>
+                  </div>
+                </div>
+                </Nav.Link>
+              </div>
+              <div className="col-12 col-md-4 mb-4 d-flex justify-content-center">
+                <Nav.Link as={Link} to="/search">
+                <div className="card" style={{ width: '18rem' }}>
+                  <img
+                    src="/images/placeholder/linux-icon.png"
+                    className="card-img-top"
+                    alt="Дворове"
+                  />
+                  <div className="card-body text-center">
+                    <h5 className="card-title">Дворове</h5>
                   </div>
                 </div>
                 </Nav.Link>
