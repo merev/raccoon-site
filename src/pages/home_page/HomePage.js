@@ -16,6 +16,7 @@ const HomePage = () => {
         AOS.init({
             duration: 1000,
             once: false,
+            mirror: true,
         });
     }, []);
 
@@ -54,11 +55,11 @@ const HomePage = () => {
             <h2 className="mb-4 text-center services-title">Нашите услуги</h2>
             <Row className="justify-content-center">
               {[
-                { title: 'Домове', img: 'linux-icon.png' },
-                { title: 'Офиси', img: 'linux-icon.png' },
-                { title: 'Автомобили', img: 'linux-icon.png' },
-                { title: 'Входове', img: 'linux-icon.png' },
-                { title: 'Дворове', img: 'linux-icon.png' }
+                { title: 'Домове', img: 'home.jpg' },
+                { title: 'Офиси', img: 'office.jpg' },
+                { title: 'Автомобили', img: 'car.jpg' },
+                { title: 'Входове', img: 'entrance.jpg' },
+                { title: 'Дворове', img: 'backyard.webp' }
               ].map((service, index) => (
                 <div
                   key={index}
@@ -80,78 +81,41 @@ const HomePage = () => {
                 </div>
               ))}
             </Row>
-            {/* <Row className="justify-content-center">
-              <div className="col-12 col-md-4 mb-4 d-flex justify-content-center">
-                <Nav.Link as={Link} to="/search">
-                <div className="card" style={{ width: '18rem' }}>
+          </Container>
+        </section>
+        <section className="partners-section text-center py-5">
+          <Container>
+            <h2 className="mb-4 partners-title">Нашите партньори</h2>
+            <Row className="justify-content-center align-items-center">
+              <div
+                className="col-6 col-md-4 mb-4 d-flex justify-content-center"
+                data-aos="fade-right"
+                data-aos-offset="200"
+                data-aos-duration="1000"
+              >
+                <a href="https://www.kaercher.com" target="_blank" rel="noopener noreferrer">
                   <img
-                    src="/images/placeholder/linux-icon.png"
-                    className="card-img-top"
-                    alt="Домове"
+                    src="/images/partners/karcher-logo.png"
+                    alt="Kärcher Logo"
+                    className="partner-logo"
                   />
-                  <div className="card-body text-center">
-                    <h5 className="card-title">Домове</h5>
-                  </div>
-                </div>
-                </Nav.Link>
+                </a>
               </div>
-              <div className="col-12 col-md-4 mb-4 d-flex justify-content-center">
-                <Nav.Link as={Link} to="/search">
-                <div className="card" style={{ width: '18rem' }}>
+              <div
+                className="col-6 col-md-4 mb-4 d-flex justify-content-center"
+                data-aos="fade-left"
+                data-aos-offset="200"
+                data-aos-duration="1000"
+              >
+                <a href="https://www.koch-chemie.com" target="_blank" rel="noopener noreferrer">
                   <img
-                    src="/images/placeholder/linux-icon.png"
-                    className="card-img-top"
-                    alt="Офиси"
+                    src="/images/partners/koch-chemie-logo.webp"
+                    alt="Koch Chemie Logo"
+                    className="partner-logo"
                   />
-                  <div className="card-body text-center">
-                    <h5 className="card-title">Офиси</h5>
-                  </div>
-                </div>
-                </Nav.Link>
+                </a>
               </div>
-              <div className="col-12 col-md-4 mb-4 d-flex justify-content-center">
-                <Nav.Link as={Link} to="/search">
-                <div className="card" style={{ width: '18rem' }}>
-                  <img
-                    src="/images/placeholder/linux-icon.png"
-                    className="card-img-top"
-                    alt="Автомобили"
-                  />
-                  <div className="card-body text-center">
-                    <h5 className="card-title">Автомобили</h5>
-                  </div>
-                </div>
-                </Nav.Link>
-              </div>
-              <div className="col-12 col-md-4 mb-4 d-flex justify-content-center">
-                <Nav.Link as={Link} to="/search">
-                <div className="card" style={{ width: '18rem' }}>
-                  <img
-                    src="/images/placeholder/linux-icon.png"
-                    className="card-img-top"
-                    alt="Входове"
-                  />
-                  <div className="card-body text-center">
-                    <h5 className="card-title">Входове</h5>
-                  </div>
-                </div>
-                </Nav.Link>
-              </div>
-              <div className="col-12 col-md-4 mb-4 d-flex justify-content-center">
-                <Nav.Link as={Link} to="/search">
-                <div className="card" style={{ width: '18rem' }}>
-                  <img
-                    src="/images/placeholder/linux-icon.png"
-                    className="card-img-top"
-                    alt="Дворове"
-                  />
-                  <div className="card-body text-center">
-                    <h5 className="card-title">Дворове</h5>
-                  </div>
-                </div>
-                </Nav.Link>
-              </div>
-            </Row> */}
+            </Row>
           </Container>
         </section>
       </CenteredLayout>
