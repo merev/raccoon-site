@@ -55,7 +55,6 @@ function Layout() {
                   </Routes>
                 </Row>
             </Container>
-            <Footer />
         </div>
     );
 }

@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Container, Nav, Row, Button } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './HomePage.css';
 import { Link } from 'react-router-dom';
 import CenteredLayout from '../../components/utilities/CenteredLayout';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 // import HomeSectionCard from '../../components/cards/sections_card/HomeSectionCard.js';
 
+
+
 const HomePage = () => {
+    
+    useEffect(() => {
+        AOS.init({
+            duration: 1000,
+            once: false,
+        });
+    }, []);
 
     return (
         <CenteredLayout>
@@ -42,6 +53,34 @@ const HomePage = () => {
           <Container>
             <h2 className="mb-4 text-center services-title">Нашите услуги</h2>
             <Row className="justify-content-center">
+              {[
+                { title: 'Домове', img: 'linux-icon.png' },
+                { title: 'Офиси', img: 'linux-icon.png' },
+                { title: 'Автомобили', img: 'linux-icon.png' },
+                { title: 'Входове', img: 'linux-icon.png' },
+                { title: 'Дворове', img: 'linux-icon.png' }
+              ].map((service, index) => (
+                <div
+                  key={index}
+                  className="col-12 col-md-4 mb-4 d-flex justify-content-center"
+                  data-aos={index % 2 === 0 ? 'fade-right' : 'fade-left'}
+                >
+                  <Nav.Link as={Link} to="/search">
+                    <div className="card" style={{ width: '18rem' }}>
+                      <img
+                        src={`/images/placeholder/${service.img}`}
+                        className="card-img-top"
+                        alt={service.title}
+                      />
+                      <div className="card-body text-center">
+                        <h5 className="card-title">{service.title}</h5>
+                      </div>
+                    </div>
+                  </Nav.Link>
+                </div>
+              ))}
+            </Row>
+            {/* <Row className="justify-content-center">
               <div className="col-12 col-md-4 mb-4 d-flex justify-content-center">
                 <Nav.Link as={Link} to="/search">
                 <div className="card" style={{ width: '18rem' }}>
@@ -112,7 +151,7 @@ const HomePage = () => {
                 </div>
                 </Nav.Link>
               </div>
-            </Row>
+            </Row> */}
           </Container>
         </section>
       </CenteredLayout>

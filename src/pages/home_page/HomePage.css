@@ -1,23 +1,19 @@
 .home-page {
     background-color: #ffffff;
-    padding: 20px 20px 0px 20px;
-    font-family: Arial, sans-serif;
+    padding: 0px 0px 0px 0px;
   }
 
 .homepage-header-section {
     background: linear-gradient(to top left, rgb(255, 247, 90), #cfffbd);
-    width: 100vw;
     position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
-    padding: 5px 40px;
+    width: 100%;
+    margin: 0 auto; 
+    padding: 5px 15px;
 }
 
 .homepage-main-section{
-    margin: 80px 0px 0px 0px;
-    font-family: "Monsterat";
+    margin: 100px 0px 0px 0px;
+    font-family: 'Monsterat', serif;
 }
 
 .homepage-subtitle {
@@ -47,7 +43,7 @@
     font-family: 'Open Sans';
 }
 
-.search-button:hover {
+.search-button:hover, .search-button:active {
     background-color: #a3ffa9;
     border-color: #a3ffa9;
     color: rgb(53, 53, 53);
@@ -61,19 +57,16 @@
 
 .services-section {
     background: linear-gradient(to top left, #cfffbd, rgb(255, 247, 90));
-    width: 100vw;
     position: relative;
-    left: 50%;
-    right: 50%;
-    margin-left: -50vw;
-    margin-right: -50vw;
+    width: 100%;
+    margin: 0 auto;
     padding: 40px 0;
 }
 
 .services-title {
     font-weight: bold;
     color: rgb(53, 53, 53);
-    font-family: "Monsterat";
+    font-family: "Monsterat", serif;
 }
 
 .card-img-top {
@@ -100,4 +93,9 @@
 .card:hover {
     box-shadow: 20px 23px 32px 0px rgba(0, 0, 0, 0.587);
     z-index: 2;
+}
+
+[data-aos] {
+  will-change: transform, opacity;
+  backface-visibility: hidden;
 }

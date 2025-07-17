@@ -10,8 +10,8 @@ const Header = () => {
     const currentPath = location.pathname;
 
     return (
-        <Navbar variant='dark' expand="lg" fixed="top" className="p-2 justify-content-center header-component">
-            <Container className="w-100 w-md-75 w-lg-50 mx-auto d-flex align-items-center">
+        <Navbar variant='dark' expand="md" fixed="top" className="p-2 justify-content-center header-component">
+            <Container fluid="md" className="d-flex align-items-center justify-content-between">
                 {/* Logo */}
                 <Navbar.Brand as={Link} to="/" className="header-logo">
                     <img src="/images/header/raccoon-logo.svg" alt="Logo" className="me-2" style={{ width: '40px', height: '40px' }}/> Raccoon
