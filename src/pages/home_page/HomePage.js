@@ -25,12 +25,12 @@ const HomePage = () => {
         <div className="homepage-header-section">
         <section className="homepage-main-section text-center">
           <h1 className="display-3 homepage-title">Raccoon Cleaning</h1>
-          <h4>Професионално почистване с техника <b>Kärcher</b></h4>
+          <h4 className="homepage-subtitle">Професионално почистване с техника <b>Kärcher</b> в Пловдив</h4>
         </section>
         
-        <section className="homepage-subtitle text-center">
+        <section className="text-center">
           <h6 className="header-subtitle">
-          Ние от <b>Raccoon Cleaning</b> вярваме, че чистотата е повече от услуга – тя е доверие, качество и внимание към всеки детайл. Благодарение на модерната техника на световния лидер <b>Kärcher</b>, нашият професионален екип се грижи не само за безупречната чистота на вашия дом или офис, но и за перфектния вид на вашия автомобил. Изберете нашите решения и се насладете на свежестта, комфорта и уюта, които заслужавате!
+          Ние от <b>Raccoon Cleaning</b> вярваме, че чистотата е повече от услуга – тя е доверие, качество и внимание към всеки детайл. Благодарение на модерната техника на световния лидер <b>Kärcher</b>, нашият професионален екип се грижи не само за безупречната чистота на вашия дом или офис, но и за перфектния вид на вашия автомобил.
           </h6>
           <div className="my-4">
             <Nav.Link as={Link} to="/search">

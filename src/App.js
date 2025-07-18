@@ -24,7 +24,6 @@
 
 // export default App;
 
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import 'katex/dist/katex.min.css';
 import { React, useState } from 'react';

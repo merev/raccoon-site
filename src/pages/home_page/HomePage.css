@@ -17,8 +17,9 @@
 }
 
 .homepage-subtitle {
-    margin: 30px 0px 0px 0px;
+    margin: 0px 0px 30px 0px;
     color: rgb(53, 53, 53);
+    padding: 0px 180px;
 }
 
 .homepage-title {
@@ -28,9 +29,20 @@
 }
 
 .header-subtitle {
-    font-size: '30px';
     font-family: 'Open Sans';
     color: rgb(53, 53, 53);
+    padding: 0px 180px;
+    justify-content: center;
+    text-align: justify;
+}
+
+@media (max-width: 768px) {
+  .header-subtitle {
+    padding: 0px 20px; /* Adjust padding for smaller screens */
+  }
+  .homepage-subtitle {
+    padding: 0px 20px; /* Adjust padding for smaller screens */
+  }
 }
 
 .search-button {
