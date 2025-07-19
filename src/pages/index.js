@@ -1,6 +1,9 @@
 export { default as HomePage } from './home_page/HomePage';
-// export { default as DocsIntroPage } from './docs_pages/DocsIntroPage';
-// export { default as DocsSectionPage } from './docs_pages/DocsSectionPage';
-// export { default as DocsTopicPage } from './docs_pages/DocsTopicPage';
-// export { default as DocsArticlePage } from './docs_pages/DocsArticlePage';
-// export { default as SearchPage } from './SearchPage';
+export { default as ServicesMainPage } from './services_main_page/ServicesMainPage';
+export { default as FlatsPage } from './services_pages/FlatsPage';
+export { default as HousesPage } from './services_pages/HousesPage';
+export { default as OfficesPage } from './services_pages/OfficesPage';
+export { default as CarsPage } from './services_pages/CarsPage';
+export { default as EntrancesPage } from './services_pages/EntrancesPage';
+export { default as BackyardsPage } from './services_pages/BackyardsPage';
+export { default as ContactsPage } from './contacts_page/ContactsPage';

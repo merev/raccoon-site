@@ -1,36 +1,8 @@
-// import logo from './logo.svg';
-// import './App.css';
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
-
-// export default App;
-
-import 'bootstrap/dist/css/bootstrap.min.css';
-// import 'katex/dist/katex.min.css';
 import { React, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Header, Footer } from './components';
-import { HomePage } from './pages';
+import { HomePage, ServicesMainPage, FlatsPage, HousesPage, OfficesPage, CarsPage, EntrancesPage, BackyardsPage, ContactsPage } from './pages';
 import './App.css';
 
 function Layout() {
@@ -46,11 +18,15 @@ function Layout() {
                 <Row>
                    <Routes>
                             <Route exact path="/" element={<HomePage />} />
-                            {/* <Route path="/docs/intro" element={<DocsIntroPage />} />
-                            <Route path="/docs/:word" element={<DocsSectionPage />} />
-                            <Route path="/docs/:word1/:word2" element={<DocsTopicPage />} />
-                            <Route path="/docs/:word1/:word2/:word3" element={<DocsArticlePage />} />
-                            <Route path="/search" element={<SearchPage />} /> */}
+                            <Route exact path="/services" element={<ServicesMainPage />} />
+                            <Route exact path="/contacts" element={<ContactsPage />} />
+                            <Route exact path="/services/flats" element={<FlatsPage />} />
+                            <Route exact path="/services/houses" element={<HousesPage />} />
+                            <Route exact path="/services/offices" element={<OfficesPage />} />
+                            <Route exact path="/services/cars" element={<CarsPage />} />
+                            <Route exact path="/services/entrances" element={<EntrancesPage />} />
+                            <Route exact path="/services/backyards" element={<BackyardsPage />} />
+                            {/* Add more routes as needed */}
                   </Routes>
                 </Row>
             </Container>

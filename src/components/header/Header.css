@@ -15,7 +15,7 @@
 }
 
 .header-logo:hover {
-    color: #a3ffa9;
+    color: rgb(222, 255, 90);
     cursor: pointer;
 }
 
@@ -25,6 +25,10 @@
 }
 
 .header-element:hover {
-    color: #a3ffa9;
+    color: rgb(222, 255, 90);
     cursor: pointer;
+}
+
+.active-link {
+  color: #a3ffa9 !important;
 }

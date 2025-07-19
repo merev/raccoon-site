@@ -33,7 +33,7 @@ const HomePage = () => {
           Ние от <b>Raccoon Cleaning</b> вярваме, че чистотата е повече от услуга – тя е доверие, качество и внимание към всеки детайл. Благодарение на модерната техника на световния лидер <b>Kärcher</b>, нашият професионален екип се грижи не само за безупречната чистота на вашия дом или офис, но и за перфектния вид на вашия автомобил.
           </h6>
           <div className="my-4">
-            <Nav.Link as={Link} to="/search">
+            <Nav.Link as={Link} to="/services">
               <Button variant="light" size="lg" className="search-button">
                 Услуги
               </Button>
@@ -55,21 +55,22 @@ const HomePage = () => {
             <h2 className="mb-4 text-center services-title">Нашите услуги</h2>
             <Row className="justify-content-center">
               {[
-                { title: 'Домове', img: 'home.jpg' },
-                { title: 'Офиси', img: 'office.jpg' },
-                { title: 'Автомобили', img: 'car.jpg' },
-                { title: 'Входове', img: 'entrance.jpg' },
-                { title: 'Дворове', img: 'backyard.webp' }
+                { title: 'Апартаменти', img: 'flat.jpg', link: '/services/flats' },
+                { title: 'Къщи', img: 'house.webp', link: '/services/houses' },
+                { title: 'Офиси', img: 'office.jpg', link: '/services/offices' },
+                { title: 'Автомобили', img: 'car.jpg', link: '/services/cars' },
+                { title: 'Входове', img: 'entrance.jpg', link: '/services/entrances' },
+                { title: 'Дворове', img: 'backyard.webp', link: '/services/backyards' },
               ].map((service, index) => (
                 <div
                   key={index}
                   className="col-12 col-md-4 mb-4 d-flex justify-content-center"
                   data-aos={index % 2 === 0 ? 'fade-right' : 'fade-left'}
                 >
-                  <Nav.Link as={Link} to="/search">
+                  <Nav.Link as={Link} to={service.link}>
                     <div className="card" style={{ width: '18rem' }}>
                       <img
-                        src={`/images/placeholder/${service.img}`}
+                        src={`/images/homepage/${service.img}`}
                         className="card-img-top"
                         alt={service.title}
                       />
