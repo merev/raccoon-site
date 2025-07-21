@@ -42,7 +42,39 @@ const services = [
     img: 'backyard.webp',
     link: '/services/backyards',
     points: ['Почистване на плочници', 'Събиране на отпадъци', 'Обработка срещу плевели']
-  }
+  },
+  {
+  title: 'Заведения',
+  img: 'restaurants.jpg',
+  link: '/services/restaurants',
+  points: [
+    'Почистване на кухненски зони и оборудване',
+    'Дезинфекция на работни повърхности',
+    'Почистване на зали и санитарни помещения'
+  ]
+  },
+  {
+  title: 'Гаражи и паркоместа',
+  img: 'garages.webp', // Увери се, че този файл е в public/images/homepage/
+  link: '/services/garages',
+  points: [
+    'Обработка на замърсени подови настилки',
+    'Премахване на масла, сажди и прах',
+    'Почистване на врати, врати и технически инсталации'
+  ]
+  },
+  {
+  title: 'Специализирани обекти',
+  img: 'specialized.jpg', // Сложи подходящо изображение, напр. икона на зъбно колело или сграда
+  link: '/services/specialized',
+  points: [
+    'Салони за красота и фризьорски салони',
+    'Фитнес зали и спортни центрове',
+    'Игрални зали',
+    'Фото и видео студиа',
+    'Цехове и работилници',
+  ]
+}
 ];
 
 const ServicesPage = () => {
@@ -52,7 +84,7 @@ const ServicesPage = () => {
 
   return (
     <CenteredLayout>
-      <section className="services-section py-5">
+      <section className="services-page py-5">
         <Container>
           <h2 className="text-center services-title mb-5">Нашите услуги</h2>
           <Row className="justify-content-center">

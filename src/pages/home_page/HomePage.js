@@ -33,11 +33,11 @@ const HomePage = () => {
           Ние от <b>Raccoon Cleaning</b> вярваме, че чистотата е повече от услуга – тя е доверие, качество и внимание към всеки детайл. Благодарение на модерната техника на световния лидер <b>Kärcher</b>, нашият професионален екип се грижи не само за безупречната чистота на вашия дом или офис, но и за перфектния вид на вашия автомобил.
           </h6>
           <div className="my-4">
-            <Nav.Link as={Link} to="/services">
+            <Link to="/services" className="text-decoration-none">
               <Button variant="light" size="lg" className="search-button">
                 Услуги
               </Button>
-            </Nav.Link>
+            </Link>
           </div>
         </section>
         </div>

@@ -24,7 +24,7 @@
 
 .homepage-title {
     font-weight: bold;
-    font-size: 2rem;
+    font-size: 4rem;
     color: rgb(53, 53, 53);
 }
 
@@ -39,6 +39,9 @@
 @media (max-width: 768px) {
   .header-subtitle {
     padding: 0px 20px; /* Adjust padding for smaller screens */
+  }
+  .homepage-title {
+    font-size: 2rem; /* Adjust font size for smaller screens */
   }
   .homepage-subtitle {
     padding: 0px 20px; /* Adjust padding for smaller screens */
