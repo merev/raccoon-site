@@ -64,7 +64,7 @@ const HomePage = () => {
               ].map((service, index) => (
                 <div
                   key={index}
-                  className="col-12 col-md-4 mb-4 d-flex justify-content-center"
+                  className="col-12 col-md-6 col-lg-4 mb-5 d-flex justify-content-center"
                   data-aos={index % 2 === 0 ? 'fade-right' : 'fade-left'}
                 >
                   <Nav.Link as={Link} to={service.link}>
