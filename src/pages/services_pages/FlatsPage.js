@@ -239,7 +239,10 @@ const FlatsPage = () => {
                           };
                           const res = await fetch(`${apiBaseUrl}/reservations`, {
                             method: 'POST',
-                            headers: { 'Content-Type': 'application/json' },
+                            headers: { 
+                                'Content-Type': 'application/json',
+                                'Accept': 'application/json'
+                            },
                             body: JSON.stringify(payload),
                           });
                           if (!res.ok) throw new Error('API error');
