@@ -23,7 +23,7 @@ const Header = () => {
                         <Nav.Link as={Link} to="/" className={`header-element ${currentPath === '/' ? 'active-link' : ''}`}>
                             Начало
                         </Nav.Link>
-                        <Nav.Link as={Link} to="/services" className={`header-element ${currentPath === '/services' ? 'active-link' : ''}`}>
+                        <Nav.Link as={Link} to="/services" className={`header-element ${currentPath.startsWith('/services') ? 'active-link' : ''}`}>
                             Услуги
                         </Nav.Link>
                         <Nav.Link as={Link} to="/contacts" className={`header-element ${currentPath === '/contacts' ? 'active-link' : ''}`}>
