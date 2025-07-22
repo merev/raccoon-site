@@ -232,7 +232,7 @@ const FlatsPage = () => {
                             flat_type: selectedFlatType,
                             subscription: subscriptionType,
                             plan: selectedPlan === 'custom' ? null : selectedPlan.name,
-                            activities: selectedPlan === 'custom' ? selected : null,
+                            activities: selectedPlan === 'custom' ? selected : [],
                             total_price: selectedPlan === 'custom'
                               ? getTotalPrice()
                               : selectedPlan.prices[selectedFlatType][subscriptionType],
