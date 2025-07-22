@@ -1,7 +1,6 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import Header from '../header/Header'; // Adjust path as needed
-import Footer from '../footer/Footer'; // Adjust path as needed
+import { Header, Footer } from '../'; // refers to components/index.js
 import './CenteredLayout.css';
 
 const CenteredLayout = ({ children }) => {
