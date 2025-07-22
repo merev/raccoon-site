@@ -1,7 +1,7 @@
 import { React, useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import { Col, Container, Row } from 'react-bootstrap';
-import { Header, Footer } from './components';
+import { ScrollToTop } from './components';
 import { HomePage, ServicesMainPage, FlatsPage, HousesPage, OfficesPage, CarsPage, EntrancesPage, BackyardsPage, ContactsPage } from './pages';
 import './App.css';
 
@@ -37,6 +37,7 @@ function Layout() {
 function App() {
     return (
         <Router>
+            <ScrollToTop />
             <Layout />
         </Router>
     );

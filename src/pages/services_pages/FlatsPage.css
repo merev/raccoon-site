@@ -17,6 +17,10 @@
 }
 
 .plan-card {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   border-radius: 1.2rem;
   box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
   padding: 15px;
@@ -31,4 +35,18 @@
   background-color: #fff;
   border-radius: 1rem;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+.summary-box {
+  text-align: left;
+}
+
+.summary-box h5 {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.summary-box p {
+  font-size: 0.95rem;
+  color: #555;
 }
