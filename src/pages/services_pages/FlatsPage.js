@@ -15,8 +15,8 @@ const FlatsPage = () => {
   const [selected, setSelected] = useState([]);
   const [selectedFlatType, setSelectedFlatType] = useState(flatTypes[0]);
   const [subscriptionType, setSubscriptionType] = useState(subscriptionTypes[0]);
-  const [step, setStep] = useState('main'); // 'main' | 'form' | 'confirm'
-  const [selectedPlan, setSelectedPlan] = useState(null); // or 'custom'
+  const [step, setStep] = useState('main');
+  const [selectedPlan, setSelectedPlan] = useState(null);
   const [userData, setUserData] = useState({
     name: '',
     email: '',
@@ -24,40 +24,40 @@ const FlatsPage = () => {
     address: '',
     info: ''
   });
+  const [showValidation, setShowValidation] = useState(false);
+  const [customWarning, setCustomWarning] = useState(false);
+
+  const apiBaseUrl = process.env.REACT_APP_API_URL || '/api';
 
   useEffect(() => {
     AOS.init({ duration: 1000, once: false, mirror: true });
   }, []);
 
-    useEffect(() => {
+  useEffect(() => {
     const html = document.documentElement;
     const body = document.body;
-
-    if (step === 'form' || step === 'confirm' || step === 'success') {
-        html.style.overflow = 'hidden';
-        body.style.overflow = 'hidden';
-        html.style.height = '100%';
-        body.style.height = '100%';
+    if (['form', 'confirm', 'success'].includes(step)) {
+      html.style.overflow = 'hidden';
+      body.style.overflow = 'hidden';
+      html.style.height = '100%';
+      body.style.height = '100%';
     } else {
-        html.style.overflow = 'auto';
-        body.style.overflow = 'auto';
-        html.style.height = 'auto';
-        body.style.height = 'auto';
+      html.style.overflow = 'auto';
+      body.style.overflow = 'auto';
+      html.style.height = 'auto';
+      body.style.height = 'auto';
     }
-
     return () => {
-        html.style.overflow = 'auto';
-        body.style.overflow = 'auto';
-        html.style.height = 'auto';
-        body.style.height = 'auto';
+      html.style.overflow = 'auto';
+      body.style.overflow = 'auto';
+      html.style.height = 'auto';
+      body.style.height = 'auto';
     };
-    }, [step]);
+  }, [step]);
 
   const toggleActivity = (activity) => {
     setSelected((prev) =>
-      prev.includes(activity)
-        ? prev.filter((item) => item !== activity)
-        : [...prev, activity]
+      prev.includes(activity) ? prev.filter((item) => item !== activity) : [...prev, activity]
     );
   };
 
@@ -67,18 +67,11 @@ const FlatsPage = () => {
       return total + (found ? found.prices[selectedFlatType][subscriptionType] : 0);
     }, 0);
 
-  const isFormValid = () => {
-    return (
-      userData.name.trim() !== '' &&
-      userData.email.trim() !== '' &&
-      userData.phone.trim() !== '' &&
-      userData.address.trim() !== ''
-    );
-  };
-
-  const [showValidation, setShowValidation] = useState(false);
-
-  const [customWarning, setCustomWarning] = useState(false);
+  const isFormValid = () =>
+    userData.name.trim() &&
+    userData.email.trim() &&
+    userData.phone.trim() &&
+    userData.address.trim();
 
   return (
     <CenteredLayout>
@@ -92,8 +85,7 @@ const FlatsPage = () => {
                 <Form.Label><strong>Тип на апартамента:</strong></Form.Label>
                 <Form.Select
                   value={selectedFlatType}
-                  onChange={(e) => setSelectedFlatType(e.target.value)}
-                >
+                  onChange={(e) => setSelectedFlatType(e.target.value)}>
                   {flatTypes.map((type, i) => (
                     <option key={i} value={type}>{type}</option>
                   ))}
@@ -108,8 +100,7 @@ const FlatsPage = () => {
                 <Form.Label><strong>Тип на обслужване:</strong></Form.Label>
                 <Form.Select
                   value={subscriptionType}
-                  onChange={(e) => setSubscriptionType(e.target.value)}
-                >
+                  onChange={(e) => setSubscriptionType(e.target.value)}>
                   {subscriptionTypes.map((type, i) => (
                     <option key={i} value={type}>{type}</option>
                   ))}
@@ -125,16 +116,10 @@ const FlatsPage = () => {
                 <Card className="plan-card text-center w-100 d-flex flex-column">
                   <Card.Body className="d-flex flex-column">
                     <Card.Title>{plan.name}</Card.Title>
-                    <h3 className="my-3">
-                      {plan.prices[selectedFlatType][subscriptionType]} лв
-                    </h3>
-                    <small className="text-muted mb-3">
-                      за {selectedFlatType}, {subscriptionType.toLowerCase()}
-                    </small>
+                    <h3 className="my-3">{plan.prices[selectedFlatType][subscriptionType]} лв</h3>
+                    <small className="text-muted mb-3">за {selectedFlatType}, {subscriptionType.toLowerCase()}</small>
                     <ul className="list-unstyled flex-grow-1">
-                      {plan.features.map((f, idx) => (
-                        <li key={idx}>• {f}</li>
-                      ))}
+                      {plan.features.map((f, idx) => <li key={idx}>• {f}</li>)}
                     </ul>
                     <Button variant="dark" className="mt-auto" onClick={() => {
                       setSelectedPlan(plan);
@@ -161,25 +146,18 @@ const FlatsPage = () => {
                 <hr />
                 <div className="summary-box mt-3">
                   <h5>Обща цена: {getTotalPrice()} лв</h5>
-                  <p className="text-muted mb-0">
-                    за {selectedFlatType}, {subscriptionType.toLowerCase()}
-                  </p>
+                  <p className="text-muted mb-0">за {selectedFlatType}, {subscriptionType.toLowerCase()}</p>
                 </div>
                 <Button variant="success" className="mt-3" onClick={() => {
-                    if (selected.length === 0) {
-                        setCustomWarning(true);
-                        return;
-                    }
-                    setCustomWarning(false);
-                    setSelectedPlan('custom');
-                    setStep('form');
-                    }}>
-                    Резервирай
-                </Button>
-
-                {customWarning && (
-                <p className="text-danger mt-2">Моля, изберете поне една услуга преди да продължите.</p>
-                )}
+                  if (selected.length === 0) {
+                    setCustomWarning(true);
+                    return;
+                  }
+                  setCustomWarning(false);
+                  setSelectedPlan('custom');
+                  setStep('form');
+                }}>Резервирай</Button>
+                {customWarning && <p className="text-danger mt-2">Моля, изберете поне една услуга преди да продължите.</p>}
               </Form>
             </Col>
           </Row>
@@ -190,118 +168,116 @@ const FlatsPage = () => {
             <div className="modal-content">
               {step === 'form' && (
                 <Form>
-                    <h4 className="mb-4">Вашите данни</h4>
-                    <Form.Group className="mb-3">
-                    <Form.Label>Име *</Form.Label>
-                    <Form.Control
+                  <h4 className="mb-4">Вашите данни</h4>
+                  {['name', 'email', 'phone', 'address'].map((field, i) => (
+                    <Form.Group key={i} className="mb-3">
+                      <Form.Label>{field.charAt(0).toUpperCase() + field.slice(1)} *</Form.Label>
+                      <Form.Control
                         type="text"
-                        value={userData.name}
-                        onChange={(e) => setUserData({ ...userData, name: e.target.value })}
-                        isInvalid={showValidation && userData.name.trim() === ''}
-                    />
-                    {showValidation && userData.name.trim() === '' && <Form.Control.Feedback type="invalid">Полето е задължително</Form.Control.Feedback>}
+                        value={userData[field]}
+                        onChange={(e) => setUserData({ ...userData, [field]: e.target.value })}
+                        isInvalid={showValidation && userData[field].trim() === ''}
+                      />
+                      {showValidation && userData[field].trim() === '' && <Form.Control.Feedback type="invalid">Полето е задължително</Form.Control.Feedback>}
                     </Form.Group>
-                    <Form.Group className="mb-3">
-                    <Form.Label>Email *</Form.Label>
-                    <Form.Control
-                        type="email"
-                        value={userData.email}
-                        onChange={(e) => setUserData({ ...userData, email: e.target.value })}
-                        isInvalid={showValidation && userData.email.trim() === ''}
-                    />
-                    {showValidation && userData.email.trim() === '' && <Form.Control.Feedback type="invalid">Полето е задължително</Form.Control.Feedback>}
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                    <Form.Label>Телефон *</Form.Label>
-                    <Form.Control
-                        type="text"
-                        value={userData.phone}
-                        onChange={(e) => setUserData({ ...userData, phone: e.target.value })}
-                        isInvalid={showValidation && userData.phone.trim() === ''}
-                    />
-                    {showValidation && userData.phone.trim() === '' && <Form.Control.Feedback type="invalid">Полето е задължително</Form.Control.Feedback>}
-                    </Form.Group>
-                    <Form.Group className="mb-3">
-                    <Form.Label>Адрес *</Form.Label>
-                    <Form.Control
-                        type="text"
-                        value={userData.address}
-                        onChange={(e) => setUserData({ ...userData, address: e.target.value })}
-                        isInvalid={showValidation && userData.address.trim() === ''}
-                    />
-                    {showValidation && userData.address.trim() === '' && <Form.Control.Feedback type="invalid">Полето е задължително</Form.Control.Feedback>}
-                    </Form.Group>
+                  ))}
                   <Form.Group className="mb-3">
                     <Form.Label>Допълнителна информация</Form.Label>
                     <Form.Control as="textarea" rows={3} value={userData.info} onChange={(e) => setUserData({ ...userData, info: e.target.value })} />
                   </Form.Group>
-                 <div className="d-flex justify-content-between">
+                  <div className="d-flex justify-content-between">
                     <Button variant="secondary" onClick={() => setStep('main')}>Назад</Button>
                     <Button variant="success" onClick={() => {
-                        setShowValidation(true);
-                        if (isFormValid()) {
-                        setStep('confirm');
-                        }
+                      setShowValidation(true);
+                      if (isFormValid()) setStep('confirm');
                     }}>Напред</Button>
-                    </div>
+                  </div>
                 </Form>
               )}
 
               {step === 'confirm' && (
                 <div>
-                    <h4 className="mb-4">Потвърждение на заявката</h4>
-                    <p><strong>Име:</strong> {userData.name}</p>
-                    <p><strong>Email:</strong> {userData.email}</p>
-                    <p><strong>Телефон:</strong> {userData.phone}</p>
-                    <p><strong>Адрес:</strong> {userData.address}</p>
-                    <p><strong>Инфо:</strong> {userData.info}</p>
-                    <p><strong>Тип на апартамента:</strong> {selectedFlatType}</p>
-                    <p><strong>Тип обслужване:</strong> {subscriptionType}</p>
-                    {selectedPlan === 'custom' ? (
+                  <h4 className="mb-4">Потвърждение на заявката</h4>
+                  <p><strong>Име:</strong> {userData.name}</p>
+                  <p><strong>Email:</strong> {userData.email}</p>
+                  <p><strong>Телефон:</strong> {userData.phone}</p>
+                  <p><strong>Адрес:</strong> {userData.address}</p>
+                  <p><strong>Инфо:</strong> {userData.info}</p>
+                  <p><strong>Тип на апартамента:</strong> {selectedFlatType}</p>
+                  <p><strong>Тип обслужване:</strong> {subscriptionType}</p>
+                  {selectedPlan === 'custom' ? (
                     <>
-                        <p><strong>Избрани услуги:</strong></p>
-                        <ul>
+                      <p><strong>Избрани услуги:</strong></p>
+                      <ul>
                         {selected.map((name, i) => (
-                            <li key={i}>{name} — {activities.find(a => a.name === name)?.prices[selectedFlatType][subscriptionType]} лв</li>
+                          <li key={i}>{name} — {activities.find(a => a.name === name)?.prices[selectedFlatType][subscriptionType]} лв</li>
                         ))}
-                        </ul>
-                        <p><strong>Обща цена:</strong> {getTotalPrice()} лв</p>
+                      </ul>
+                      <p><strong>Обща цена:</strong> {getTotalPrice()} лв</p>
                     </>
-                    ) : (
+                  ) : (
                     <>
-                        <p><strong>План:</strong> {selectedPlan.name}</p>
-                        <p><strong>Цена:</strong> {selectedPlan.prices[selectedFlatType][subscriptionType]} лв</p>
+                      <p><strong>План:</strong> {selectedPlan.name}</p>
+                      <p><strong>Цена:</strong> {selectedPlan.prices[selectedFlatType][subscriptionType]} лв</p>
                     </>
-                    )}
-                    <div className="d-flex justify-content-between mt-4">
+                  )}
+                  <div className="d-flex justify-content-between mt-4">
                     <Button variant="secondary" onClick={() => setStep('form')}>Назад</Button>
-                    <Button variant="success" onClick={() => setStep('success')}>Потвърди</Button>
-                    </div>
-                </div>
-                )}
-
-                {step === 'success' && (
-                <div>
-                    <h4 className="mb-4 text-success">Заявката е изпратена успешно!</h4>
-                    <p>Благодарим ви, {userData.name}. Ще получите потвърждение по имейл на <strong>{userData.email}</strong>.</p>
-                    <div className="text-center mt-4">
-                    <Button variant="dark" onClick={() => {
-                        setStep('main');
-                        setUserData({ name: '', email: '', phone: '', address: '', info: '' });
-                        setSelected([]);
-                        setSelectedPlan(null);
-                        setShowValidation(false);
-                    }}>
-                        Затвори
+                    <Button
+                      variant="success"
+                      onClick={async () => {
+                        try {
+                          const payload = {
+                            ...userData,
+                            flat_type: selectedFlatType,
+                            subscription: subscriptionType,
+                            plan: selectedPlan === 'custom' ? null : selectedPlan.name,
+                            activities: selectedPlan === 'custom' ? selected : null,
+                            total_price: selectedPlan === 'custom'
+                              ? getTotalPrice()
+                              : selectedPlan.prices[selectedFlatType][subscriptionType],
+                          };
+                          const res = await fetch(`${apiBaseUrl}/reservations`, {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify(payload),
+                          });
+                          if (!res.ok) throw new Error('API error');
+                          const data = await res.json();
+                          console.log('Reservation successful:', data);
+                          setStep('success');
+                        } catch (error) {
+                          alert('Възникна грешка при изпращането на заявката.');
+                          console.error(error);
+                        }
+                      }}>
+                      Потвърди
                     </Button>
-                    </div>
+                  </div>
                 </div>
-                )}
+              )}
+
+              {step === 'success' && (
+                <div>
+                  <h4 className="mb-4 text-success">Заявката е изпратена успешно!</h4>
+                  <p>Благодарим ви, {userData.name}. Ще получите потвърждение по имейл на <strong>{userData.email}</strong>.</p>
+                  <div className="text-center mt-4">
+                    <Button variant="dark" onClick={() => {
+                      setStep('main');
+                      setUserData({ name: '', email: '', phone: '', address: '', info: '' });
+                      setSelected([]);
+                      setSelectedPlan(null);
+                      setShowValidation(false);
+                    }}>
+                      Затвори
+                    </Button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         )}
       </section>
-
       <PartnersSection />
     </CenteredLayout>
   );
