@@ -43,7 +43,7 @@ const ContactsPage = () => {
             <Col md={6} data-aos="fade-left">
               <div className="contact-box p-4">
                 <h4 className="mb-3">Контакти</h4>
-                <p><strong>Телефон:</strong> <a href="tel:+359888123456">+359 888 123 456</a></p>
+                <p><strong>Телефон:</strong> <a href="tel:+359876729294">+359 876 729 294</a></p>
                 <div className="social-links mt-4">
                   <a href="https://facebook.com/yourpage" target="_blank" rel="noopener noreferrer"><FaFacebook /></a>
                   <a href="https://instagram.com/yourprofile" target="_blank" rel="noopener noreferrer"><FaInstagram /></a>
