@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button, Form, Spinner } from 'react-bootstrap';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import './FlatsPage.css';
@@ -26,6 +26,9 @@ const FlatsPage = () => {
   });
   const [showValidation, setShowValidation] = useState(false);
   const [customWarning, setCustomWarning] = useState(false);
+  const [emailValid, setEmailValid] = useState(true);
+  const [phoneValid, setPhoneValid] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const apiBaseUrl = process.env.REACT_APP_API_URL || '/api';
 
@@ -67,11 +70,26 @@ const FlatsPage = () => {
       return total + (found ? found.prices[selectedFlatType][subscriptionType] : 0);
     }, 0);
 
-  const isFormValid = () =>
-    userData.name.trim() &&
-    userData.email.trim() &&
-    userData.phone.trim() &&
-    userData.address.trim();
+  const isFormValid = () => {
+    const emailPattern = /.+@.+\..+/;
+    const emailCheck = emailPattern.test(userData.email);
+    setEmailValid(emailCheck);
+
+    const phonePattern = /^\d{10}$/;
+    const phoneCheck = phonePattern.test(userData.phone);
+    setPhoneValid(phoneCheck);
+
+    return (
+      userData.name.trim() &&
+      userData.email.trim() &&
+      userData.phone.trim() &&
+      userData.address.trim() &&
+      userData.date &&
+      userData.time &&
+      emailCheck &&
+      phoneCheck
+    );
+  };
 
   return (
     <CenteredLayout>
@@ -136,12 +154,15 @@ const FlatsPage = () => {
             <Col md={8} className="mx-auto">
               <Form className="calculator-box p-4">
                 {activities.map((activity, i) => (
-                  <Form.Check
-                    key={i}
-                    label={`${activity.name} - ${activity.prices[selectedFlatType][subscriptionType]} лв`}
-                    onChange={() => toggleActivity(activity.name)}
-                    checked={selected.includes(activity.name)}
-                  />
+                    <Form.Group key={i} className="d-flex align-items-center mb-2" onClick={() => toggleActivity(activity.name)} style={{ cursor: 'pointer' }}>
+                    <Form.Check
+                        type="checkbox"
+                        label={`${activity.name} - ${activity.prices[selectedFlatType][subscriptionType]} лв`}
+                        checked={selected.includes(activity.name)}
+                        onChange={() => {}}
+                        onClick={(e) => e.stopPropagation()}
+                    />
+                    </Form.Group>
                 ))}
                 <hr />
                 <div className="summary-box mt-3">
@@ -176,11 +197,52 @@ const FlatsPage = () => {
                         type="text"
                         value={userData[field]}
                         onChange={(e) => setUserData({ ...userData, [field]: e.target.value })}
-                        isInvalid={showValidation && userData[field].trim() === ''}
+                        isInvalid={
+                          showValidation &&
+                          (userData[field].trim() === '' ||
+                            (field === 'email' && !emailValid) ||
+                            (field === 'phone' && !phoneValid))
+                        }
                       />
-                      {showValidation && userData[field].trim() === '' && <Form.Control.Feedback type="invalid">Полето е задължително</Form.Control.Feedback>}
+                      {showValidation && userData[field].trim() === '' && (
+                        <Form.Control.Feedback type="invalid">Полето е задължително</Form.Control.Feedback>
+                      )}
+                      {showValidation && field === 'email' && userData.email.trim() !== '' && !emailValid && (
+                        <Form.Text className="text-danger">Невалиден имейл адрес</Form.Text>
+                      )}
+                      {showValidation && field === 'phone' && userData.phone.trim() !== '' && !phoneValid && (
+                        <Form.Text className="text-danger">Телефонният номер трябва да съдържа точно 10 цифри</Form.Text>
+                      )}
                     </Form.Group>
                   ))}
+                    <Form.Group className="mb-3">
+                    <Form.Label>Желана дата *</Form.Label>
+                    <Form.Control
+                        type="date"
+                        value={userData.date || ''}
+                        onChange={(e) => setUserData({ ...userData, date: e.target.value })}
+                        isInvalid={showValidation && !userData.date}
+                    />
+                    {showValidation && !userData.date && (
+                        <Form.Control.Feedback type="invalid">
+                        Полето е задължително
+                        </Form.Control.Feedback>
+                    )}
+                    </Form.Group>
+                    <Form.Group className="mb-3">
+                    <Form.Label>Час *</Form.Label>
+                    <Form.Control
+                        type="time"
+                        value={userData.time || ''}
+                        onChange={(e) => setUserData({ ...userData, time: e.target.value })}
+                        isInvalid={showValidation && !userData.time}
+                    />
+                    {showValidation && !userData.time && (
+                        <Form.Control.Feedback type="invalid">
+                        Полето е задължително
+                        </Form.Control.Feedback>
+                    )}
+                    </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label>Допълнителна информация</Form.Label>
                     <Form.Control as="textarea" rows={3} value={userData.info} onChange={(e) => setUserData({ ...userData, info: e.target.value })} />
@@ -202,6 +264,8 @@ const FlatsPage = () => {
                   <p><strong>Email:</strong> {userData.email}</p>
                   <p><strong>Телефон:</strong> {userData.phone}</p>
                   <p><strong>Адрес:</strong> {userData.address}</p>
+                  <p><strong>Дата:</strong> {userData.date}</p>
+                  <p><strong>Час:</strong> {userData.time}</p>
                   <p><strong>Инфо:</strong> {userData.info}</p>
                   <p><strong>Тип на апартамента:</strong> {selectedFlatType}</p>
                   <p><strong>Тип обслужване:</strong> {subscriptionType}</p>
@@ -225,8 +289,10 @@ const FlatsPage = () => {
                     <Button variant="secondary" onClick={() => setStep('form')}>Назад</Button>
                     <Button
                       variant="success"
+                      disabled={isSubmitting}
                       onClick={async () => {
                         try {
+                          setIsSubmitting(true);
                           const payload = {
                             ...userData,
                             flat_type: selectedFlatType,
@@ -239,9 +305,9 @@ const FlatsPage = () => {
                           };
                           const res = await fetch(`${apiBaseUrl}/reservations`, {
                             method: 'POST',
-                            headers: { 
-                                'Content-Type': 'application/json',
-                                'Accept': 'application/json'
+                            headers: {
+                              'Content-Type': 'application/json',
+                              'Accept': 'application/json'
                             },
                             body: JSON.stringify(payload),
                           });
@@ -252,9 +318,11 @@ const FlatsPage = () => {
                         } catch (error) {
                           alert('Възникна грешка при изпращането на заявката.');
                           console.error(error);
+                        } finally {
+                          setIsSubmitting(false);
                         }
                       }}>
-                      Потвърди
+                      {isSubmitting ? (<Spinner animation="border" size="sm" />) : 'Потвърди'}
                     </Button>
                   </div>
                 </div>
