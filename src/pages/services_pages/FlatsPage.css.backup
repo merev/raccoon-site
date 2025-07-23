@@ -1,7 +1,7 @@
-body.modal-open {
-  overflow: hidden;
-  position: fixed;
-  width: 100%;
+/* body.modal-open,
+html.modal-open {
+  overflow: hidden !important;
+  height: 100%;
 }
 
 .service-detail-section {
@@ -57,31 +57,18 @@ body.modal-open {
   color: #555;
 }
 
-.buttons-container {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  margin-top: 5px;
-  padding-bottom: 0.2rem;
-  bottom: 0;
-  background: white;
-  padding-top: 1rem;
-}
-
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
+  overflow-y: auto;
   background: rgba(0, 0, 0, 0.6);
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   z-index: 9999;
-  padding: 20px 0;
-  overflow-y: auto;
-  pointer-events: none;
 }
 
 .modal-content {
@@ -90,18 +77,8 @@ body.modal-open {
   padding: 2rem;
   max-width: 600px;
   width: 90%;
-  max-height: 90vh;
-  overflow-y: auto;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   animation: fadeIn 0.3s ease-in-out;
-  margin: auto;
-  padding-bottom: 20px;
-  pointer-events: auto;
-}
-
-.modal-content .form-group {
-  margin-bottom: 1rem;
-  min-height: 5rem;
 }
 
 @keyframes fadeIn {
@@ -112,18 +89,4 @@ body.modal-open {
 .content-blurred {
   filter: blur(2px);
   pointer-events: none;
-}
-
-/* Checkbox styling */
-.form-check {
-  cursor: pointer;
-}
-
-.form-check-input {
-  cursor: pointer;
-}
-
-.form-check-label {
-  cursor: pointer;
-  user-select: none;
-}
+} */

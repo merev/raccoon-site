@@ -22,7 +22,9 @@ const FlatsPage = () => {
     email: '',
     phone: '',
     address: '',
-    info: ''
+    info: '',
+    date: '',
+    time: ''
   });
   const [showValidation, setShowValidation] = useState(false);
   const [customWarning, setCustomWarning] = useState(false);
@@ -37,24 +39,14 @@ const FlatsPage = () => {
   }, []);
 
   useEffect(() => {
-    const html = document.documentElement;
     const body = document.body;
     if (['form', 'confirm', 'success'].includes(step)) {
-      html.style.overflow = 'hidden';
-      body.style.overflow = 'hidden';
-      html.style.height = '100%';
-      body.style.height = '100%';
+      body.classList.add('modal-open');
     } else {
-      html.style.overflow = 'auto';
-      body.style.overflow = 'auto';
-      html.style.height = 'auto';
-      body.style.height = 'auto';
+      body.classList.remove('modal-open');
     }
     return () => {
-      html.style.overflow = 'auto';
-      body.style.overflow = 'auto';
-      html.style.height = 'auto';
-      body.style.height = 'auto';
+      body.classList.remove('modal-open');
     };
   }, [step]);
 
@@ -159,7 +151,7 @@ const FlatsPage = () => {
                         type="checkbox"
                         label={`${activity.name} - ${activity.prices[selectedFlatType][subscriptionType]} лв`}
                         checked={selected.includes(activity.name)}
-                        onChange={() => {}}
+                        onChange={() => toggleActivity(activity.name)}
                         onClick={(e) => e.stopPropagation()}
                     />
                     </Form.Group>
@@ -194,7 +186,7 @@ const FlatsPage = () => {
                     <Form.Group key={i} className="mb-3">
                       <Form.Label>{field.charAt(0).toUpperCase() + field.slice(1)} *</Form.Label>
                       <Form.Control
-                        type="text"
+                        type={field === 'email' ? 'email' : 'text'}
                         value={userData[field]}
                         onChange={(e) => setUserData({ ...userData, [field]: e.target.value })}
                         isInvalid={
@@ -243,17 +235,17 @@ const FlatsPage = () => {
                         </Form.Control.Feedback>
                     )}
                     </Form.Group>
-                  <Form.Group className="mb-3">
+                  <Form.Group className="mb-4">
                     <Form.Label>Допълнителна информация</Form.Label>
                     <Form.Control as="textarea" rows={3} value={userData.info} onChange={(e) => setUserData({ ...userData, info: e.target.value })} />
                   </Form.Group>
-                  <div className="d-flex justify-content-between">
-                    <Button variant="secondary" onClick={() => setStep('main')}>Назад</Button>
-                    <Button variant="success" onClick={() => {
-                      setShowValidation(true);
-                      if (isFormValid()) setStep('confirm');
-                    }}>Напред</Button>
-                  </div>
+                  <div className="buttons-container">
+                  <Button variant="secondary" onClick={() => setStep('main')}>Назад</Button>
+                  <Button variant="success" onClick={() => {
+                    setShowValidation(true);
+                    if (isFormValid()) setStep('confirm');
+                  }}>Напред</Button>
+                </div>
                 </Form>
               )}
 
@@ -266,7 +258,7 @@ const FlatsPage = () => {
                   <p><strong>Адрес:</strong> {userData.address}</p>
                   <p><strong>Дата:</strong> {userData.date}</p>
                   <p><strong>Час:</strong> {userData.time}</p>
-                  <p><strong>Инфо:</strong> {userData.info}</p>
+                  <p><strong>Инфо:</strong> {userData.info || 'Няма'}</p>
                   <p><strong>Тип на апартамента:</strong> {selectedFlatType}</p>
                   <p><strong>Тип обслужване:</strong> {subscriptionType}</p>
                   {selectedPlan === 'custom' ? (
@@ -335,7 +327,7 @@ const FlatsPage = () => {
                   <div className="text-center mt-4">
                     <Button variant="dark" onClick={() => {
                       setStep('main');
-                      setUserData({ name: '', email: '', phone: '', address: '', info: '' });
+                      setUserData({ name: '', email: '', phone: '', address: '', info: '', date: '', time: '' });
                       setSelected([]);
                       setSelectedPlan(null);
                       setShowValidation(false);
