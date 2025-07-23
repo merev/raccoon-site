@@ -1,4 +1,3 @@
-// Updated ContactsPage.jsx
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import AOS from 'aos';
@@ -18,6 +17,28 @@ const ContactsPage = () => {
   useEffect(() => {
     AOS.init({ duration: 1000, once: false, mirror: true });
   }, []);
+
+  useEffect(() => {
+    const html = document.documentElement;
+    const body = document.body;
+    if (submitted) {
+      html.style.overflow = 'hidden';
+      body.style.overflow = 'hidden';
+      html.style.height = '100%';
+      body.style.height = '100%';
+    } else {
+      html.style.overflow = 'auto';
+      body.style.overflow = 'auto';
+      html.style.height = 'auto';
+      body.style.height = 'auto';
+    }
+    return () => {
+      html.style.overflow = 'auto';
+      body.style.overflow = 'auto';
+      html.style.height = 'auto';
+      body.style.height = 'auto';
+    };
+  }, [submitted]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -42,38 +63,30 @@ const ContactsPage = () => {
 
   return (
     <CenteredLayout>
-      <section className="contacts-section py-5">
+      <section className={`contacts-section py-5 ${submitted ? 'content-blurred' : ''}`}>
         <Container>
           <h2 className="text-center contacts-title mb-5">Свържете се с нас</h2>
           <Row className="justify-content-center mb-5">
             <Col md={6} data-aos="fade-right">
               <div className="contact-box p-4">
-                {submitted ? (
-                  <div className="text-success text-center">
-                    <h5>Вашето съобщение беше изпратено успешно!</h5>
-                  </div>
-                ) : (
-                  <>
-                    <h4 className="mb-3">Форма за запитване</h4>
-                    <Form onSubmit={handleSubmit}>
-                      <Form.Group className="mb-3">
-                        <Form.Label>Име</Form.Label>
-                        <Form.Control type="text" value={name} onChange={e => setName(e.target.value)} required />
-                      </Form.Group>
-                      <Form.Group className="mb-3">
-                        <Form.Label>Email</Form.Label>
-                        <Form.Control type="email" value={email} onChange={e => setEmail(e.target.value)} required />
-                      </Form.Group>
-                      <Form.Group className="mb-3">
-                        <Form.Label>Съобщение</Form.Label>
-                        <Form.Control as="textarea" rows={4} value={message} onChange={e => setMessage(e.target.value)} required />
-                      </Form.Group>
-                      <Button variant="dark" type="submit" disabled={isSubmitting}>
-                        {isSubmitting ? 'Изпращане...' : 'Изпрати'}
-                      </Button>
-                    </Form>
-                  </>
-                )}
+                <h4 className="mb-3">Форма за запитване</h4>
+                <Form onSubmit={handleSubmit}>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Име</Form.Label>
+                    <Form.Control type="text" value={name} onChange={e => setName(e.target.value)} required />
+                  </Form.Group>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control type="email" value={email} onChange={e => setEmail(e.target.value)} required />
+                  </Form.Group>
+                  <Form.Group className="mb-3">
+                    <Form.Label>Съобщение</Form.Label>
+                    <Form.Control as="textarea" rows={4} value={message} onChange={e => setMessage(e.target.value)} required />
+                  </Form.Group>
+                  <Button variant="dark" type="submit" disabled={isSubmitting}>
+                    {isSubmitting ? 'Изпращане...' : 'Изпрати'}
+                  </Button>
+                </Form>
               </div>
             </Col>
 
@@ -92,6 +105,16 @@ const ContactsPage = () => {
           </Row>
         </Container>
       </section>
+
+      {submitted && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h5 className="mb-3">Вашето съобщение беше изпратено успешно!</h5>
+            <Button variant="dark" onClick={() => setSubmitted(false)}>Затвори</Button>
+          </div>
+        </div>
+      )}
+
       <PartnersSection />
     </CenteredLayout>
   );
