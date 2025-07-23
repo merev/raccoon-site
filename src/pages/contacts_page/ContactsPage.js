@@ -1,4 +1,5 @@
-import React, { useEffect } from 'react';
+// Updated ContactsPage.jsx
+import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -7,9 +8,37 @@ import { CenteredLayout, PartnersSection } from '../../components';
 import { FaFacebook, FaInstagram, FaViber, FaTelegram } from 'react-icons/fa';
 
 const ContactsPage = () => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const apiBaseUrl = process.env.REACT_APP_API_URL || '/api';
+
   useEffect(() => {
     AOS.init({ duration: 1000, once: false, mirror: true });
   }, []);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setIsSubmitting(true);
+      const res = await fetch(`${apiBaseUrl}/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email, message }),
+      });
+      if (!res.ok) throw new Error('Send error');
+      setSubmitted(true);
+      setName('');
+      setEmail('');
+      setMessage('');
+    } catch (err) {
+      console.error(err);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <CenteredLayout>
@@ -19,24 +48,32 @@ const ContactsPage = () => {
           <Row className="justify-content-center mb-5">
             <Col md={6} data-aos="fade-right">
               <div className="contact-box p-4">
-                <h4 className="mb-3">Форма за запитване</h4>
-                <Form action="mailto:your@email.com" method="POST" encType="text/plain">
-                  <Form.Group className="mb-3">
-                    <Form.Label>Име</Form.Label>
-                    <Form.Control type="text" name="name" required />
-                  </Form.Group>
-                  <Form.Group className="mb-3">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" name="email" required />
-                  </Form.Group>
-                  <Form.Group className="mb-3">
-                    <Form.Label>Съобщение</Form.Label>
-                    <Form.Control as="textarea" name="message" rows={4} required />
-                  </Form.Group>
-                  <Button variant="dark" type="submit">
-                    Изпрати
-                  </Button>
-                </Form>
+                {submitted ? (
+                  <div className="text-success text-center">
+                    <h5>Вашето съобщение беше изпратено успешно!</h5>
+                  </div>
+                ) : (
+                  <>
+                    <h4 className="mb-3">Форма за запитване</h4>
+                    <Form onSubmit={handleSubmit}>
+                      <Form.Group className="mb-3">
+                        <Form.Label>Име</Form.Label>
+                        <Form.Control type="text" value={name} onChange={e => setName(e.target.value)} required />
+                      </Form.Group>
+                      <Form.Group className="mb-3">
+                        <Form.Label>Email</Form.Label>
+                        <Form.Control type="email" value={email} onChange={e => setEmail(e.target.value)} required />
+                      </Form.Group>
+                      <Form.Group className="mb-3">
+                        <Form.Label>Съобщение</Form.Label>
+                        <Form.Control as="textarea" rows={4} value={message} onChange={e => setMessage(e.target.value)} required />
+                      </Form.Group>
+                      <Button variant="dark" type="submit" disabled={isSubmitting}>
+                        {isSubmitting ? 'Изпращане...' : 'Изпрати'}
+                      </Button>
+                    </Form>
+                  </>
+                )}
               </div>
             </Col>
 
