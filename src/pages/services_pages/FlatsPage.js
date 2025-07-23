@@ -97,7 +97,7 @@ const FlatsPage = () => {
         <Container className={step !== 'main' ? 'content-blurred' : ''}>
           <h2 className="text-center mb-4 service-title">Почистване на апартаменти</h2>
 
-          <Row className="mb-3 justify-content-center" data-aos="fade-up">
+          <Row className="mb-3 justify-content-center" data-aos="fade-right">
             <Col md={6}>
               <Form.Group controlId="flatTypeSelect">
                 <Form.Label><strong>Тип на апартамента:</strong></Form.Label>
@@ -112,7 +112,7 @@ const FlatsPage = () => {
             </Col>
           </Row>
 
-          <Row className="mb-4 justify-content-center" data-aos="fade-up">
+          <Row className="mb-4 justify-content-center" data-aos="fade-left">
             <Col md={6}>
               <Form.Group controlId="subscriptionSelect">
                 <Form.Label><strong>Тип на обслужване:</strong></Form.Label>
@@ -127,7 +127,7 @@ const FlatsPage = () => {
             </Col>
           </Row>
 
-          <Row className="mb-5" data-aos="fade-up">
+          <Row className="mb-5" data-aos="fade-right">
             <h4 className="mb-4 text-center">Нашите планове</h4>
             {plans.map((plan, i) => (
               <Col key={i} md={4} className="mb-4 d-flex">
@@ -149,7 +149,7 @@ const FlatsPage = () => {
             ))}
           </Row>
 
-          <Row data-aos="fade-up">
+          <Row data-aos="fade-left">
             <h4 className="mb-4 text-center">Или създайте своя собствен пакет</h4>
             <Col md={8} className="mx-auto">
               <Form className="calculator-box p-4">
