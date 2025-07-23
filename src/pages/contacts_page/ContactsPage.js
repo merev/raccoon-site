@@ -1,3 +1,4 @@
+// Updated ContactsPage.jsx with email validation
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import AOS from 'aos';
@@ -10,6 +11,7 @@ const ContactsPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [emailValid, setEmailValid] = useState(true);
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const apiBaseUrl = process.env.REACT_APP_API_URL || '/api';
@@ -40,8 +42,16 @@ const ContactsPage = () => {
     };
   }, [submitted]);
 
+  const validateEmail = (value) => {
+    const pattern = /.+@.+\..+/;
+    setEmailValid(pattern.test(value));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    validateEmail(email);
+    if (!emailValid) return;
+
     try {
       setIsSubmitting(true);
       const res = await fetch(`${apiBaseUrl}/contact`, {
@@ -77,7 +87,11 @@ const ContactsPage = () => {
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label>Email</Form.Label>
-                    <Form.Control type="email" value={email} onChange={e => setEmail(e.target.value)} required />
+                    <Form.Control type="email" value={email} onChange={e => {
+                      setEmail(e.target.value);
+                      validateEmail(e.target.value);
+                    }} isInvalid={!emailValid} required />
+                    {!emailValid && <Form.Text className="text-danger">Невалиден имейл адрес</Form.Text>}
                   </Form.Group>
                   <Form.Group className="mb-3">
                     <Form.Label>Съобщение</Form.Label>
